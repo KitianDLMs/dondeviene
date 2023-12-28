@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "409232038702",
+    "firebase_url": "https://echnelapp-2023-default-rtdb.firebaseio.com",
+    "project_id": "echnelapp-2023",
+    "storage_bucket": "echnelapp-2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409232038702:android:371b8d659b8e2fa72af8bf",
+        "android_client_info": {
+          "package_name": "com.echnelapp.mp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "409232038702-qdup49t0s83e6h12g8j2rao09cu0pon6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAb65KXMnKkiN-mZUFzO-8GGCmZ6XW1FiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "409232038702-qdup49t0s83e6h12g8j2rao09cu0pon6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "409232038702-qdj78ejle05l56lsnh3595tb12unplu9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.echnelapp.mp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
