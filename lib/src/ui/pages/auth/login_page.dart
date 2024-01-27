@@ -25,9 +25,9 @@ class LoginPage extends StatelessWidget {
                 children: [
                   Logo(),
                   _Form(),
-                  Labels(ruta: 'login-ios', titulo: '', subtitulo: 'Guest'),
+                  Labels(ruta: 'login-ios', titulo: '', subtitulo: 'Pasajero'),
                   Text(
-                    'dondeviene',
+                    '®dondeviene',
                     style: TextStyle(fontWeight: FontWeight.w200),
                   )
                 ],
@@ -46,6 +46,7 @@ class _Form extends StatefulWidget {
 class __FormState extends State<_Form> {
   final emailCtrl = TextEditingController();
   final passCtrl = TextEditingController();
+  bool obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +68,17 @@ class __FormState extends State<_Form> {
             placeholder: 'Contraseña',
             isPassword: true,
             textController: passCtrl,
+            suffixIcon: IconButton(
+              icon: Icon(
+                obscurePassword ? Icons.visibility_off : Icons.visibility,
+              ),
+              onPressed: () {
+                setState(() {
+                  obscurePassword = !obscurePassword;
+                });
+              },
+            ),
+            obscureText: obscurePassword,
           ),
           BotonAzul(
               text: 'Ingresar',

@@ -1,9 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../../data/services/services.dart';
 
 class DrawerUsr extends StatelessWidget {
@@ -11,8 +7,6 @@ class DrawerUsr extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Uri _url = Uri.parse(
-        'http://tienda.dondeviene.com/landing-producto/terminos-y-condiciones-dnde-viene');
     final auth = Provider.of<AuthService>(context);
     return Drawer(
       child: ListView(
@@ -26,7 +20,7 @@ class DrawerUsr extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Invitado',
+                    'Pasajero',
                     style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
@@ -46,8 +40,8 @@ class DrawerUsr extends StatelessWidget {
                     height: 60,
                     margin: EdgeInsets.only(top: 10),
                     child: FadeInImage(
-                      placeholder: AssetImage('assets/no-image-2.png'),
-                      image: AssetImage('assets/no-image-2.png'),
+                      placeholder: AssetImage('assets/logo.png'),
+                      image: AssetImage('assets/logo.png'),
                       fadeInDuration: Duration(milliseconds: 50),
                       fit: BoxFit.contain,
                     ),
@@ -68,12 +62,12 @@ class DrawerUsr extends StatelessWidget {
                 Navigator.pushNamedAndRemoveUntil(
                     context, 'user/info', (route) => false);
               }),
-          ListTile(
-              title: Text('Terminos y condiciones'),
-              trailing: Icon(Icons.settings_outlined),
-              onTap: () async {
-                launch("${_url}");
-              }),
+          // ListTile(
+          //     title: Text('Terminos y condiciones'),
+          //     trailing: Icon(Icons.settings_outlined),
+          //     onTap: () async {
+          //       launch("${_url}");
+          //     }),
           ListTile(
               title: Text('Salir'),
               trailing: Icon(Icons.exit_to_app_outlined),

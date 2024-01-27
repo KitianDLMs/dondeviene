@@ -5,16 +5,15 @@ import 'package:http/http.dart' as http;
 import 'package:dondeviene/src/data/models/usuarios_response.dart';
 import 'package:dondeviene/src/data/services/services.dart';
 import 'package:dondeviene/src/global/environment.dart';
-import 'package:provider/provider.dart';
 
 class UsuariosService {
   BuildContext? context;
   Usuario? usuario;
 
   // Future init(BuildContext context, Usuario sesionUsuario) {
-  Future init(BuildContext context, Function refresh) {
+  Future init(BuildContext context, Function refresh) async {
     this.context = context;
-    return refresh();
+    await refresh();
     // this.usuario = sesionUsuario;
   }
 

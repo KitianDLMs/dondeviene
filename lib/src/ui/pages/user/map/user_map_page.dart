@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -59,46 +60,64 @@ class _UserMapPageState extends State<UserMapPage> {
       height: MediaQuery.of(context).size.height * 0.39,
       width: double.infinity,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(20), topLeft: Radius.circular(20)),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey.withOpacity(0.6),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3))
-          ]),
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(20),
+          topLeft: Radius.circular(20),
+        ),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.6),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3),
+          )
+        ],
+      ),
       child: Column(
         children: [
           _listTileAddress(
-              _con.trip.descripcion == null
-                  ? 'espere...'
-                  : _con.trip.descripcion,
-              _con.trip.nombre == 'santiago'
-                  ? 'Terminal Estación central'
-                  : 'Primera parada Escuela La Merced',
-              Icons.my_location),
+            _con.trip.descripcion == null ? 'espere...' : _con.trip.descripcion,
+            _con.trip.nombre == 'santiago'
+                ? 'Terminal Estación central'
+                : 'Primera parada Escuela La Merced',
+            Icons.my_location,
+          ),
           Divider(color: Colors.grey[400]),
-          // FutureBuilder(
-          //   future: _con.getTime(
-          //     Location(
-          //         latitude: _con.position?.latitude,
-          //         longitude: _con.position?.longitude),
-          //     Location(latitude: _con.timeLat, longitude: _con.timeLng),
-          //   ),
-          //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-          //     if (snapshot.hasData) {
-          //       return _listTileTimer('Tiempo estimado de llegada',
-          //           '${snapshot.data}', Icons.timelapse_outlined);
-          //     } else {
-          //       return CircularProgressIndicator(
-          //         strokeWidth: 1,
-          //       );
-          //     }
-          //   },
-          // ),
-          _buttonNext()
+          CarouselSlider(
+            options: CarouselOptions(
+              aspectRatio: 2.5,
+              enlargeCenterPage: true,
+              scrollDirection: Axis.horizontal,
+              autoPlay: true,
+            ),
+            items: [
+              // Aquí debes agregar tus imágenes desde la carpeta assets
+              'assets/logo.png',
+              'assets/logo.png',
+              'assets/logo.png',
+              // ... Agrega más imágenes según sea necesario
+            ].map((imagePath) {
+              return Builder(
+                builder: (BuildContext context) {
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.symmetric(horizontal: 2.0),
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                    ),
+                    child: Image.asset(
+                      imagePath,
+                      fit: BoxFit.cover,
+                    ),
+                  );
+                },
+              );
+            }).toList(),
+          ),
+          Divider(color: Colors.grey[400]),
+          // Resto de tu contenido, como el _buttonNext()
+          _buttonNext(),
         ],
       ),
     );
@@ -156,12 +175,12 @@ class _UserMapPageState extends State<UserMapPage> {
           ? EdgeInsets.only(
               left: 30,
               right: 30,
-              top: 200,
+              // top: 0,
             )
           : EdgeInsets.only(
               left: 30,
               right: 30,
-              top: 100,
+              // top: 100,
             ),
       child: ElevatedButton(
           onPressed: () {
@@ -178,7 +197,7 @@ class _UserMapPageState extends State<UserMapPage> {
               Align(
                 alignment: Alignment.center,
                 child: Container(
-                  height: 50,
+                  height: 30,
                   alignment: Alignment.center,
                   child: Text(
                     'Atras',
@@ -192,7 +211,7 @@ class _UserMapPageState extends State<UserMapPage> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
-                  margin: EdgeInsets.only(left: 70, top: 9),
+                  margin: EdgeInsets.only(left: 70),
                   height: 30,
                   child: Icon(
                     Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back,

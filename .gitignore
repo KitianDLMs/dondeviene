@@ -30,6 +30,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+/sofia/
 
 # Symbolication related
 app.*.symbols

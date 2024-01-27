@@ -41,8 +41,8 @@ class DrawerAdmin extends StatelessWidget {
                     height: 60,
                     margin: EdgeInsets.only(top: 10),
                     child: FadeInImage(
-                      placeholder: AssetImage('assets/no-image-2.png'),
-                      image: AssetImage('assets/no-image-2.png'),
+                      placeholder: AssetImage('assets/logo.png'),
+                      image: AssetImage('assets/logo.png'),
                       fadeInDuration: Duration(milliseconds: 50),
                       fit: BoxFit.contain,
                     ),
@@ -64,7 +64,7 @@ class DrawerAdmin extends StatelessWidget {
                     context, 'admin/info', (route) => false);
               }),
           ListTile(
-              title: Text('Cerar sesión'),
+              title: Text('Cerrar sesión'),
               trailing: Icon(Icons.exit_to_app_outlined),
               onTap: () async {
                 Navigator.pushNamedAndRemoveUntil(

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:409232038702:android:371b8d659b8e2fa72af8bf",
         "android_client_info": {
-          "package_name": "com.echnelapp.mp"
+          "package_name": "com.echnelapp.dondeviene"
         }
       },
       "oauth_client": [
@@ -35,7 +35,7 @@
               "client_id": "409232038702-qdj78ejle05l56lsnh3595tb12unplu9.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.echnelapp.mp"
+                "bundle_id": "com.echnelapp.dondeviene"
               }
             }
           ]

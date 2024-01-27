@@ -66,7 +66,7 @@ class _AdminTripDetailPageState extends State<AdminTripDetailPage> {
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(5)),
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(1),
           child: Column(
             children: [
               Container(
@@ -145,7 +145,10 @@ class _AdminTripDetailPageState extends State<AdminTripDetailPage> {
                   alignment: Alignment.center,
                   child: Text(
                     'Despachar viaje',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                 ),
               ),
@@ -189,7 +192,10 @@ class _AdminTripDetailPageState extends State<AdminTripDetailPage> {
                   alignment: Alignment.center,
                   child: Text(
                     'Actualizar a detenido',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                 ),
               ),
@@ -239,7 +245,7 @@ class _tripDirection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(50),
+      margin: EdgeInsets.all(10),
       child: Text(
         'Viaje con dirección:',
         style: TextStyle(fontSize: 30),
@@ -264,12 +270,15 @@ class _textDescription extends StatelessWidget {
       children: [
         Row(
           children: [
-            FadeInImage(
-              height: 100,
-              placeholder: AssetImage('assets/logodv.png'),
-              image: AssetImage('assets/logodv.png'),
-              fadeInDuration: Duration(milliseconds: 50),
-              fit: BoxFit.contain,
+            Container(
+              margin: EdgeInsets.all(10),
+              child: FadeInImage(
+                height: 70,
+                placeholder: AssetImage('assets/logo.png'),
+                image: AssetImage('assets/logo.png'),
+                fadeInDuration: Duration(milliseconds: 50),
+                fit: BoxFit.contain,
+              ),
             ),
             Text(
               'Salida: ${widget.trip.descripcion ?? ''}',

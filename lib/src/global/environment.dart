@@ -4,7 +4,7 @@ class Environment {
   // static const String API_URL = "http://localhost:3000/";
   static const String API_URL = "https://sofia-rubia.fly.dev/";
 
-  static const String API_KEY_MAPS = "AIzaSyB5-NBEVjNvabypvFzLh4xBb4EjPu2CKvI";
+  static const String API_KEY_MAPS = "AIzaSyD2PnxYwWQqu2rbAa3SopcZOHGDGLxUgIk";
 
   static String apiUrl = 'https://sofia-rubia.fly.dev/api';
   // Platform.isAndroid

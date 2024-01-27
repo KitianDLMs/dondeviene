@@ -20,6 +20,7 @@ class _UserTripDetailPageState extends State<UserTripDetailPage> {
   final _storage = new FlutterSecureStorage();
 
   Trip? trip;
+  late Future<List<Value>> values;
 
   @override
   void initState() {
@@ -27,6 +28,7 @@ class _UserTripDetailPageState extends State<UserTripDetailPage> {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       _con.init(context, refresh, widget.trip);
+      values = _con.getValues();
     });
   }
 
@@ -39,10 +41,11 @@ class _UserTripDetailPageState extends State<UserTripDetailPage> {
           _textDescription(widget: widget),
           _tripDirection(),
           _tripName(widget: widget),
+          widget.trip.status == 'Finalizado' ? Container() : _buildTable(),
           widget.trip.status != 'Estacionado' &&
                   widget.trip.status != 'Finalizado'
               ? _buttonNext()
-              : Container()
+              : Container(),
         ],
       ),
     );
@@ -50,6 +53,129 @@ class _UserTripDetailPageState extends State<UserTripDetailPage> {
 
   void refresh() {
     setState(() {});
+  }
+
+  Widget _buildTable() {
+    return FutureBuilder<List<Value>>(
+      future: values,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Container(
+              margin: EdgeInsets.all(20), child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Text('No se encontraron valores.');
+        } else {
+          return Container(
+            margin: EdgeInsets.only(left: 4, right: 4),
+            child: Table(
+              border: TableBorder.all(),
+              children: [
+                ...snapshot.data!.map((value) {
+                  return TableRow(
+                    children: [
+                      TableCell(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('Adulto'),
+                        ),
+                      ),
+                      TableCell(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('\$${snapshot.data!.first.adulto}'),
+                        ),
+                      ),
+                    ],
+                  );
+                }).toList(),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Adulto Mayor'),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('\$${snapshot.data!.first.adultoMayor}'),
+                      ),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Estudiante'),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('\$${snapshot.data!.first.estudiante}'),
+                      ),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Estudiante Universitario'),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('\$${snapshot.data!.first.estudianteUni}'),
+                      ),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Local'),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('\$${snapshot.data!.first.local}'),
+                      ),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Intermedio'),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('\$${snapshot.data!.first.intermedio}'),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        }
+      },
+    );
   }
 
   List<DropdownMenuItem<String>> _dropDownItems(List<Usuario> usuarios) {
@@ -73,7 +199,7 @@ class _UserTripDetailPageState extends State<UserTripDetailPage> {
 
   _buttonNext() {
     return Container(
-      margin: EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 30),
+      margin: EdgeInsets.only(left: 30, right: 30, top: 1, bottom: 30),
       child: ElevatedButton(
           onPressed: _con.updateTrip,
           style: ElevatedButton.styleFrom(
@@ -89,7 +215,7 @@ class _UserTripDetailPageState extends State<UserTripDetailPage> {
                   height: 50,
                   alignment: Alignment.center,
                   child: Text(
-                    'Ver en el mapa',
+                    ' Ver en el mapa',
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -126,7 +252,7 @@ class _tripName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(50),
+      // margin: EdgeInsets.all(50),
       child: Text(
         '${widget.trip.nombre ?? ''}',
         style: TextStyle(fontSize: 50),
@@ -143,7 +269,7 @@ class _tripDirection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(50),
+      // margin: EdgeInsets.all(),
       child: Text(
         'Viaje con dirección:',
         style: TextStyle(fontSize: 30),
@@ -164,33 +290,52 @@ class _textDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
+        Column(
           children: [
-            FadeInImage(
-              height: 100,
-              placeholder: AssetImage('assets/logodv.png'),
-              image: AssetImage('assets/logodv.png'),
-              fadeInDuration: Duration(milliseconds: 50),
-              fit: BoxFit.contain,
+            Container(
+              margin: EdgeInsets.all(10),
+              child: FadeInImage(
+                height: 70,
+                placeholder: AssetImage('assets/logo.png'),
+                image: AssetImage('assets/logo.png'),
+                fadeInDuration: Duration(milliseconds: 50),
+                fit: BoxFit.contain,
+              ),
             ),
-            Text(
-              'Salida: ${widget.trip.descripcion ?? ''}',
-              style: TextStyle(fontSize: 30),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              child: Center(
+                child: Text(
+                  'Salida: ${widget.trip.descripcion ?? ''}',
+                  style: TextStyle(fontSize: 30),
+                ),
+              ),
             ),
           ],
         ),
         Container(
           margin: EdgeInsets.all(70),
-          color: (widget.trip.online != true) ? Colors.red : Colors.green,
-          child: Row(
-            children: [
-              Text(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: (widget.trip.status == 'Finalizado')
+                ? Colors.red
+                : (widget.trip.status == 'Estacionado')
+                    ? Colors.amber
+                    : Colors.green,
+          ),
+          child: Center(
+            child: Text(
                 'Estado: ${widget.trip.status == 'EnCamino' ? 'EnCamino' : widget.trip.status == 'Estacionado' ? 'Estacionado' : 'Finalizado'}',
-                style: Platform.isIOS
-                    ? TextStyle(fontSize: 20)
-                    : TextStyle(fontSize: 20),
-              ),
-            ],
+                style:
+                    // Platform.isIOS ?
+                    TextStyle(
+                        fontSize: 20,
+                        color: widget.trip.status == 'Finalizado' ||
+                                widget.trip.status == 'EnCamino'
+                            ? Colors.white
+                            : Colors.black)
+                // : TextStyle(fontSize: 20),
+                ),
           ),
         ),
       ],

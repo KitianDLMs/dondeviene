@@ -152,7 +152,33 @@ class _UserGetTripPageState extends State<UserGetTripPage> {
                     ),
                   ],
                 ),
-              )
+              ),
+              Positioned(
+                top: 50,
+                right: 5,
+                child: ElevatedButton.icon(
+                  onPressed: () async {
+                    // _confirmDelete(trip.uid);
+                    _con.openBottomSheet(trip);
+                    await _storage.write(key: 'uidUsrTrip', value: trip.uid);
+                  },
+                  icon: Icon(
+                      trip.status == 'Estacionado'
+                          ? Icons.pan_tool
+                          : trip.status == 'EnCamino'
+                              ? Icons.keyboard_double_arrow_up
+                              : Icons.thumb_up,
+                      color: Colors.white),
+                  label: Text('', style: TextStyle(color: Colors.red)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: trip.status == 'Estacionado'
+                        ? Colors.amber
+                        : trip.status == 'EnCamino'
+                            ? Colors.green[300]
+                            : Colors.red,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

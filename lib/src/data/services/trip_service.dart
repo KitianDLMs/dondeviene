@@ -14,9 +14,9 @@ class TripService {
   Usuario? usuario;
   final _storage = new FlutterSecureStorage();
 
-  Future init(BuildContext context, Function refresh) {
+  Future init(BuildContext context, Function refresh) async {
     this.context = context;
-    return refresh();
+    await refresh();
   }
 
   Future<List<Trip>> getByStatus(String status) async {

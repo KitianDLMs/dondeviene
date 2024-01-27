@@ -3,6 +3,7 @@ import 'package:flutter/scheduler.dart';
 
 import 'package:dondeviene/src/ui/pages/admin/get/admin_get_trip_controller.dart';
 import 'package:dondeviene/src/ui/widgets/widgets.dart';
+import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 class AdminGetTripPage extends StatefulWidget {
   const AdminGetTripPage({Key? key}) : super(key: key);
@@ -13,11 +14,13 @@ class AdminGetTripPage extends StatefulWidget {
 
 class _AdminGetTripPageState extends State<AdminGetTripPage> {
   AdminGetTripController _con = new AdminGetTripController();
+  late ProgressDialog _progressDialog;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _progressDialog = ProgressDialog(context: context);
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       _con.init(context, refresh);
     });
@@ -67,7 +70,8 @@ class _AdminGetTripPageState extends State<AdminGetTripPage> {
           // }),
         ),
         floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.refresh),
+          backgroundColor: Colors.blue,
+          child: Icon(Icons.refresh, color: Colors.white),
           onPressed: () {
             setState(() {});
           },
@@ -77,30 +81,11 @@ class _AdminGetTripPageState extends State<AdminGetTripPage> {
   }
 
   Widget _cardTrip(dynamic trip) {
-    // return GestureDetector(
-    //   onTap: () {
-    //     _con.openBottomSheet(trip);
-    //   },
-    //   child: Container(),
-    // );
     return Container(
         height: 160,
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         child: Column(
           children: [
-            GestureDetector(
-              onTap: () {
-                _con.deleteTrip(trip.uid);
-                print(trip.uid);
-              },
-              child: Container(
-                color: Colors.red,
-                child: Icon(
-                  Icons.delete,
-                  color: Colors.white,
-                ),
-              ),
-            ),
             GestureDetector(
               onTap: () {
                 _con.openBottomSheet(trip);
@@ -162,13 +147,56 @@ class _AdminGetTripPageState extends State<AdminGetTripPage> {
                           ),
                         ],
                       ),
-                    )
+                    ),
+                    Positioned(
+                      top: 50,
+                      right: 5,
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          _confirmDelete(trip.uid);
+                        },
+                        icon: Icon(Icons.delete, color: Colors.white),
+                        label: Text('Eliminar',
+                            style: TextStyle(color: Colors.white)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
           ],
         ));
+  }
+
+  void _confirmDelete(String tripUid) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirmación'),
+          content: Text('¿Estás seguro de que quieres eliminar el viaje?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Cerrar el diálogo
+              },
+              child: Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Cerrar el diálogo
+                _con.deleteTrip(
+                    tripUid); // Llamar al método deleteTrip si se confirma
+              },
+              child: Text('Eliminar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Widget _menuDrawer() {

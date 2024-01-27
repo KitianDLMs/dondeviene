@@ -37,7 +37,7 @@ class AdminTripDetailController {
 
   void getUsuarios() async {
     usuarios = await usuariosService.getDrivers();
-    refresh!();
+    await refresh!();
   }
 
   void deleteTrip(id) async {

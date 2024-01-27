@@ -12,7 +12,9 @@ class CustomInput extends StatelessWidget {
       required this.placeholder,
       required this.textController,
       this.keyboardType = TextInputType.text,
-      this.isPassword = false});
+      this.isPassword = false,
+      IconButton? suffixIcon,
+      bool? obscureText});
 
   @override
   Widget build(BuildContext context) {

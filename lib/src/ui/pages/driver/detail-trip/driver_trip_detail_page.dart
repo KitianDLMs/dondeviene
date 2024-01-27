@@ -29,7 +29,7 @@ class _DriverTripDetailPageState extends State<DriverTripDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.9,
+      height: MediaQuery.of(context).size.height * 0.93,
       child: Column(
         children: [
           _textDescription(widget: widget),
@@ -72,7 +72,10 @@ class _DriverTripDetailPageState extends State<DriverTripDetailPage> {
                   alignment: Alignment.center,
                   child: Text(
                     'Ir al mapa',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                 ),
               ),
@@ -145,15 +148,18 @@ class _textDescription extends StatelessWidget {
       children: [
         Row(
           children: [
-            FadeInImage(
-              height: 100,
-              placeholder: AssetImage('assets/logodv.png'),
-              image: AssetImage('assets/logodv.png'),
-              fadeInDuration: Duration(milliseconds: 50),
-              fit: BoxFit.contain,
+            Container(
+              margin: EdgeInsets.all(10),
+              child: FadeInImage(
+                height: 70,
+                placeholder: AssetImage('assets/logo.png'),
+                image: AssetImage('assets/logo.png'),
+                fadeInDuration: Duration(milliseconds: 50),
+                fit: BoxFit.contain,
+              ),
             ),
             Text(
-              'Salida: ${widget.trip!.descripcion ?? ' '}',
+              'Salida: ${widget.trip!.descripcion ?? ''}',
               style: TextStyle(fontSize: 30),
             ),
           ],

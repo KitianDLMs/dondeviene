@@ -77,7 +77,8 @@ class _EnableGpsMessage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         // Image.asset(
-        //   'assets/dv-logo-black.png',
+        //   'assets/logo.png',
+        //   height: 50,
         //   scale: 2.0,
         // ),
         SizedBox(height: 20),

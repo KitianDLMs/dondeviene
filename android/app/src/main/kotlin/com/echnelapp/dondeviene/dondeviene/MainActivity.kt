@@ -1,4 +1,4 @@
-package com.echnelapp.mp
+package com.echnelapp.dondeviene
 
 import io.flutter.embedding.android.FlutterActivity
 

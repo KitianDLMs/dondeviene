@@ -11,7 +11,9 @@ class UserTripDetailController {
   List<Usuario> usuarios = [];
   UsuariosService usuariosService = new UsuariosService();
   TripService tripService = new TripService();
+  ValueService valueService = new ValueService();
   String? idDriver;
+  List<String> status = ['Estacionado', 'EnCamino', 'Finalizado'];
 
   Future? init(BuildContext context, Function refresh, Trip trip) {
     this.context = context;
@@ -20,11 +22,16 @@ class UserTripDetailController {
     usuariosService.init(context, refresh);
     tripService.init(context, refresh);
     getUsuarios();
+    getValues();
     refresh();
   }
 
   void updateTrip() async {
     Navigator.pushNamed(context!, 'user/map', arguments: trip!.toJson() ?? '');
+  }
+
+  Future<List<Value>> getValues() async {
+    return await valueService.getAll();
   }
 
   void getUsuarios() async {
