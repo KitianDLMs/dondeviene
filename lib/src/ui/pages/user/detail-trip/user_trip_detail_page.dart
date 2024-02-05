@@ -34,19 +34,32 @@ class _UserTripDetailPageState extends State<UserTripDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.9,
-      child: Column(
-        children: [
-          _textDescription(widget: widget),
-          _tripDirection(),
-          _tripName(widget: widget),
-          widget.trip.status == 'Finalizado' ? Container() : _buildTable(),
-          widget.trip.status != 'Estacionado' &&
-                  widget.trip.status != 'Finalizado'
-              ? _buttonNext()
-              : Container(),
-        ],
+    return ClipRRect(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(20),
+        topRight: Radius.circular(20),
+      ),
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.9,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        child: Column(
+          children: [
+            _textDescription(widget: widget),
+            _tripDirection(),
+            _tripName(widget: widget),
+            widget.trip.status == 'Finalizado' ? Container() : _buildTable(),
+            widget.trip.status != 'Estacionado' &&
+                    widget.trip.status != 'Finalizado'
+                ? _buttonNext()
+                : Container(),
+          ],
+        ),
       ),
     );
   }

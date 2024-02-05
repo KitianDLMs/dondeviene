@@ -34,6 +34,12 @@ class DriverGetTripController {
 
   void openBottomSheet(Trip trip) {
     showMaterialModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
+          ),
+        ),
         context: context!,
         builder: (context) => DriverTripDetailPage(
               trip: trip,

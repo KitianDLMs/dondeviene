@@ -1,10 +1,8 @@
-import 'package:dondeviene/src/data/services/socket_service.dart';
 import 'package:flutter/material.dart';
 import 'package:dondeviene/src/data/models/models.dart';
 import 'package:dondeviene/src/data/services/trip_service.dart';
 import 'package:dondeviene/src/ui/pages/user/detail-trip/user_trip_detail_page.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:provider/provider.dart';
 
 class UserGetTripController {
   BuildContext? context;
@@ -36,10 +34,17 @@ class UserGetTripController {
 
   void openBottomSheet(Trip trip) {
     showMaterialModalBottomSheet(
-        context: context!,
-        builder: (context) => UserTripDetailPage(
-              trip: trip,
-            ));
+      context: context!,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
+        ),
+      ),
+      builder: (context) => UserTripDetailPage(
+        trip: trip,
+      ),
+    );
   }
 
   void openDrawer() {
